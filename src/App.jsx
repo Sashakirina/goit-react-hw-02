@@ -8,12 +8,15 @@ import Notification from "./components/Notification/Notification";
 function App() {
 	const [options, setOptions] = useState(() => {
 		const savedOptions = window.localStorage.getItem("options");
-		return savedOptions !== null ? JSON.parse(savedOptions) : 0;
-	});
 
+		return savedOptions !== null
+			? JSON.parse(savedOptions)
+			: { good: 0, neutral: 0, bad: 0 };
+	});
+	console.log(options);
 	const { good, neutral, bad } = options;
 	const totalFeedback = good + neutral + bad;
-	const positivFeedback = Math.round((good / totalFeedback) * 100);
+	const positiveFeedback = Math.round((good / totalFeedback) * 100);
 
 	const updateFeedback = (feedbackType) => {
 		setOptions({
@@ -52,7 +55,7 @@ function App() {
 					neutral={options.neutral}
 					bad={options.bad}
 					totalFeedback={totalFeedback}
-					positivFeedback={positivFeedback}
+					positiveFeedback={positiveFeedback}
 				/>
 			) : (
 				<Notification />
